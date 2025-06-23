@@ -3,8 +3,8 @@ import type { ModuleInstance } from './main.js'
 
 export function UpdateFeedbacks(self: ModuleInstance): void {
 	self.setFeedbackDefinitions({
-		ChannelState: {
-			name: 'Example Feedback',
+		playbackState: {
+			name: 'Playback State',
 			type: 'boolean',
 			defaultStyle: {
 				bgcolor: combineRgb(255, 0, 0),
@@ -12,21 +12,19 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 			},
 			options: [
 				{
-					id: 'num',
-					type: 'number',
-					label: 'Test',
+					id: 'playbackState',
+					type: 'dropdown',
+					label: 'Playback State',
 					default: 5,
-					min: 0,
-					max: 10,
+					choices: [
+						{ id: 'playing', label: 'Playing' },
+						{ id: 'paused', label: 'Paused' },
+						{ id: 'stopped', label: 'Stopped' },
+					],
 				},
 			],
-			callback: (feedback) => {
-				console.log('Hello world!', feedback.options.num)
-				if (Number(feedback.options.num) > 5) {
-					return true
-				} else {
-					return false
-				}
+			callback: async (feedback) => {
+				return feedback.options.playbackState === self.getVariableValue('playbackState')
 			},
 		},
 	})

@@ -2,8 +2,12 @@ import type { ModuleInstance } from './main.js'
 
 export function UpdateVariableDefinitions(self: ModuleInstance): void {
 	self.setVariableDefinitions([
-		{ variableId: 'variable1', name: 'My first variable' },
-		{ variableId: 'variable2', name: 'My second variable' },
-		{ variableId: 'variable3', name: 'Another variable' },
+		{ variableId: 'playbackState', name: 'Playback State' },
+		{ variableId: 'currentTrackName', name: 'The name of the current track' },
+		{ variableId: 'currentTrackDuration', name: 'The duration of the current track' },
+		{ variableId: 'currentTrackPosition', name: 'The position of the playback of the current track' },
+		{ variableId: 'nextTrackName', name: 'The name of the next track' },
+		{ variableId: 'previousTrackName', name: 'The name of the previous track' },
+		{ variableId: 'currentPlaylistName', name: 'The name of the current playlist' },
 	])
 }
