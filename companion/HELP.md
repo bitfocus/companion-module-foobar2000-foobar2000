@@ -1,5 +1,7 @@
 ## foobar2000
 
+# companion-module-foobar2000-foobar2000
+
 This module allows you to control foobar2000 using the [beefweb component](https://www.foobar2000.org/components/view/foo_beefweb)
 
 ### Config
@@ -27,7 +29,9 @@ This module allows you to control foobar2000 using the [beefweb component](https
 - Duration of current track
 - Position of current track
 - Next Track
+- Previous Track
 - Playback Status
+- Current Playlist
 
 ### Availible Feedback
 

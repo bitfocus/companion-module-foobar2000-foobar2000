@@ -1,11 +1,36 @@
-# companion-module-[replace with module name]
+# companion-module-foobar2000-foobar2000
 
-See [HELP.md](./companion/HELP.md) and [LICENSE](./LICENSE)
+This module allows you to control foobar2000 using the [beefweb component](https://www.foobar2000.org/components/view/foo_beefweb)
 
-## Getting started
+### Config
 
-Executing a `yarn` command should perform all necessary steps to develop the module, if it does not then follow the steps below.
+- Download and install the beefweb component
+- Set the IP of the computer running foobar2000 as `Foobar Host` inside of companion
+- Set the port of beefweb as `Foobar Port` inside of companion (default: 8880)
+- Configure how often the module should update the Vars; The `Update Frequency` is given in milliseconds
 
-The module can be built once with `yarn build`. This should be enough to get the module to be loadable by companion.
+### Available Actions
 
-While developing the module, by using `yarn dev` the compiler will be run in watch mode to recompile the files on change.
+**Playback Control**
+
+- Play
+- Pause
+- Stop
+- Toggle Play Pause
+- Play Next
+- Play Previous
+- Play Specific Track
+
+### Available Variables
+
+- Current Track
+- Duration of current track
+- Position of current track
+- Next Track
+- Previous Track
+- Playback Status
+- Current Playlist
+
+### Availible Feedback
+
+- Playback Status
