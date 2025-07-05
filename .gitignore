@@ -4,5 +4,7 @@ package-lock.json
 /*.tgz
 /dist
 DEBUG-*
-/.yarn
+/.yarn/cache
+/.yarn/unplugged
+/.yarn/install-state.gz
 /.idea
