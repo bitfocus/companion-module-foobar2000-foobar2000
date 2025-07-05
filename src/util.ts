@@ -150,7 +150,7 @@ export async function UpdateVariables(self: ModuleInstance): Promise<void> {
 					currentTrackDuration: json.player.activeItem.duration,
 				}
 			}
-			// Update currentTrackDuration if necessary
+			// Update currentTrackPosition if necessary
 			json.player.activeItem.position = round(json.player.activeItem.position, self.config.decimalPlaces)
 			if (self.getVariableValue('currentTrackPosition') !== json.player.activeItem.position) {
 				varsToUpdate = {
@@ -189,7 +189,19 @@ export async function UpdateVariables(self: ModuleInstance): Promise<void> {
 		}
 		self.updateStatus(InstanceStatus.Ok)
 	} catch (e: any) {
-		self.log('error', `HTTP POST Request failed (${e.message})`)
-		self.updateStatus(InstanceStatus.UnknownError, e.code)
+		self.log('error', `HTTP Request failed (${e.message})`)
+		self.updateStatus(InstanceStatus.ConnectionFailure, e.message)
+
+		// Reset variables when connection fails
+		const emptyVars = {
+			playbackState: 'stopped',
+			currentTrackName: '',
+			nextTrackName: '',
+			currentPlaylistName: '',
+			currentTrackDuration: 0,
+			currentTrackPosition: 0,
+			previousTrackName: '',
+		}
+		self.setVariableValues(emptyVars)
 	}
 }

@@ -31,6 +31,6 @@ This module allows you to control foobar2000 using the [beefweb component](https
 - Playback Status
 - Current Playlist
 
-### Availible Feedback
+### Available Feedback
 
 - Playback Status

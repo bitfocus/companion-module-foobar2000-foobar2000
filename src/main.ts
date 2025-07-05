@@ -5,6 +5,7 @@ import { UpdateVariables } from './util.js'
 import { UpgradeScripts } from './upgrades.js'
 import { UpdateActions } from './actions.js'
 import { UpdateFeedbacks } from './feedbacks.js'
+import { UpdatePresets } from './presets.js'
 export class ModuleInstance extends InstanceBase<ModuleConfig> {
 	config!: ModuleConfig // Setup in init()
 	updater!: { id: string; job: NodeJS.Timeout }[]
@@ -19,9 +20,21 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 
 		this.updateStatus(InstanceStatus.Ok)
 
-		await this.updateActions() // export actions
+		this.updateActions() // export actions
 		this.updateFeedbacks() // export feedbacks
 		this.updateVariableDefinitions() // export variable definitions
+		this.updatePresets() // export presets
+
+		// Initialize variables with default values
+		this.setVariableValues({
+			playbackState: 'stopped',
+			currentTrackName: '',
+			nextTrackName: '',
+			currentPlaylistName: '',
+			currentTrackDuration: 0,
+			currentTrackPosition: 0,
+			previousTrackName: '',
+		})
 
 		this.updater.push({
 			id: 'varUpdate',
@@ -32,17 +45,24 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 	}
 	// When module gets deleted
 	async destroy(): Promise<void> {
+		// Clear all updaters
 		for (const updater of this.updater) {
-			updater.job.close()
+			clearInterval(updater.job)
 		}
+		this.updater = []
 		this.log('debug', 'destroy')
 	}
 
 	async configUpdated(config: ModuleConfig): Promise<void> {
 		this.config = config
+
+		// Clear existing updaters before creating new ones
 		for (const updater of this.updater) {
-			updater.job.close()
+			clearInterval(updater.job)
 		}
+		this.updater = []
+
+		// Create new updater with new config
 		this.updater.push({
 			id: 'varUpdate',
 			job: setInterval(() => {
@@ -56,8 +76,8 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 		return GetConfigFields()
 	}
 
-	async updateActions(): Promise<void> {
-		await UpdateActions(this)
+	updateActions(): void {
+		UpdateActions(this)
 	}
 
 	updateFeedbacks(): void {
@@ -66,6 +86,10 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 
 	updateVariableDefinitions(): void {
 		UpdateVariableDefinitions(this)
+	}
+
+	updatePresets(): void {
+		UpdatePresets(this)
 	}
 }
 

@@ -15,7 +15,7 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 					id: 'playbackState',
 					type: 'dropdown',
 					label: 'Playback State',
-					default: 5,
+					default: 'playing',
 					choices: [
 						{ id: 'playing', label: 'Playing' },
 						{ id: 'paused', label: 'Paused' },

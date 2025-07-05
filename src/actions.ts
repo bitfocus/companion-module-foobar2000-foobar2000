@@ -13,7 +13,7 @@ async function post(route: string, self: ModuleInstance) {
 	}
 }
 
-export async function UpdateActions(self: ModuleInstance): Promise<void> {
+export function UpdateActions(self: ModuleInstance): void {
 	self.setActionDefinitions({
 		play: {
 			name: 'Play',
@@ -64,7 +64,7 @@ export async function UpdateActions(self: ModuleInstance): Promise<void> {
 					id: 'info',
 					type: 'static-text',
 					label: 'Information',
-					value: `The song index is the index of the song in the Playlist (0 indexed) and the playlist id is the id of the playlist (you can get it via the [api](http://${self.config.host}:${self.config.port}/api/playlists))`,
+					value: `The song index is the index of the song in the Playlist (0 indexed) and the playlist id is the id of the playlist (you can get it via the api at http://${self.config.host}:${self.config.port}/api/playlists)`,
 				},
 				{
 					id: 'playlist',
