@@ -8,3 +8,4 @@ DEBUG-*
 /.yarn/unplugged
 /.yarn/install-state.gz
 /.idea
+.DS_Store
