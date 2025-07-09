@@ -174,6 +174,55 @@ export function UpdatePresets(self: ModuleInstance): void {
 			name: 'Playback Status',
 			text: '$(foobar2000:playbackState)',
 		},
+		trackTime: {
+			type: 'button',
+			category: 'Information',
+			name: 'Track Position/Duration',
+			style: {
+				text: 'Track Position/Duration', // Will be set by feedback
+				color: 0xffffff,
+				bgcolor: 0x333333,
+				size: 'auto',
+			},
+			steps: [],
+			feedbacks: [
+				{
+					feedbackId: 'timingInfo',
+					options: {
+						timingType: 'both',
+						separator: ' / ',
+					},
+					style: {
+						text: '', // text will be set by feedback callback
+					},
+				},
+			],
+		},
+
+		artistAlbumTitle: {
+			type: 'button',
+			category: 'Information',
+			name: 'Artist / Album / Title',
+			style: {
+				text: 'Artist / Album / Title',
+				color: 0xffffff,
+				bgcolor: 0x333333,
+				size: 'auto',
+			},
+			steps: [],
+			feedbacks: [
+				{
+					feedbackId: 'trackInfo',
+					options: {
+						trackType: 'artist_album_title',
+						separator: ' / ',
+					},
+					style: {
+						text: '',
+					},
+				},
+			],
+		},
 	}
 
 	self.setPresetDefinitions(presets)
