@@ -36,10 +36,14 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 			previousTrackName: '',
 		})
 
+		// Update both variables and feedbacks at the configured interval
 		this.updater.push({
-			id: 'varUpdate',
+			id: 'varAndFeedbackUpdate',
 			job: setInterval(() => {
+				// First update the variables
 				void UpdateVariables(this)
+				// Then trigger feedback refresh
+				this.checkFeedbacks()
 			}, this.config.updateFrequency),
 		})
 	}
@@ -64,9 +68,12 @@ export class ModuleInstance extends InstanceBase<ModuleConfig> {
 
 		// Create new updater with new config
 		this.updater.push({
-			id: 'varUpdate',
+			id: 'varAndFeedbackUpdate',
 			job: setInterval(() => {
+				// First update the variables
 				void UpdateVariables(this)
+				// Then trigger feedback refresh
+				this.checkFeedbacks()
 			}, this.config.updateFrequency),
 		})
 	}
