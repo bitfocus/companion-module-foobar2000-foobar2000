@@ -3,7 +3,7 @@
 	"name": "foobar2000-foobar2000",
 	"shortname": "foobar2000",
 	"description": "Connect companion to the foobar2000 audio player",
-	"version": "1.0.0",
+	"version": "0.0.0",
 	"license": "MIT",
 	"repository": "git+https://github.com/bitfocus/companion-module-foobar2000-foobar2000.git",
 	"bugs": "https://github.com/bitfocus/companion-module-foobar2000-foobar2000/issues",
