@@ -53,24 +53,24 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 				},
 			],
 			callback: async (feedback: any) => {
-				const position = String(self.getVariableValue('currentTrackPositionFormatted') || '');
-				const duration = String(self.getVariableValue('currentTrackDurationFormatted') || '');
-				const sep = typeof feedback.options.separator === 'string' ? feedback.options.separator : ' / ';
-				let text = '';
+				const position = String(self.getVariableValue('currentTrackPositionFormatted') || '')
+				const duration = String(self.getVariableValue('currentTrackDurationFormatted') || '')
+				const sep = typeof feedback.options.separator === 'string' ? feedback.options.separator : ' / '
+				let text = ''
 				switch (feedback.options.timingType) {
 					case 'position':
-						text = position;
-						break;
+						text = position
+						break
 					case 'duration':
-						text = duration;
-						break;
+						text = duration
+						break
 					case 'both':
-						text = `${position}${sep}${duration}`;
-						break;
+						text = `${position}${sep}${duration}`
+						break
 					default:
-						text = `${position}${sep}${duration}`;
+						text = `${position}${sep}${duration}`
 				}
-				return { text: String(text) };
+				return { text: String(text) }
 			},
 		},
 		trackInfo: {
@@ -108,35 +108,38 @@ export function UpdateFeedbacks(self: ModuleInstance): void {
 				},
 			],
 			callback: async (feedback: any) => {
-				const artist = String(self.getVariableValue('artist') || '');
-				const album = String(self.getVariableValue('album') || '');
-				const title = String(self.getVariableValue('title') || '');
-				const sep = typeof feedback.options.separator === 'string' ? feedback.options.separator : ' / ';
-				let text = '';
+				const artist = String(self.getVariableValue('artist') || '')
+				const album = String(self.getVariableValue('album') || '')
+				const title = String(self.getVariableValue('title') || '')
+				const sep = typeof feedback.options.separator === 'string' ? feedback.options.separator : ' / '
+				let text = ''
 				switch (feedback.options.trackType) {
 					case 'artist':
-						text = artist;
-						break;
+						text = artist
+						break
 					case 'album':
-						text = album;
-						break;
+						text = album
+						break
 					case 'title':
-						text = title;
-						break;
+						text = title
+						break
 					case 'artist_title':
-						text = artist && title ? `${artist} - ${title}` : artist || title;
-						break;
+						text = artist && title ? `${artist} - ${title}` : artist || title
+						break
 					case 'artist_album_title':
-						text = [artist, album, title].filter(Boolean).join(sep);
-						break;
+						text = [artist, album, title].filter(Boolean).join(sep)
+						break
 					case 'custom':
-						text = (typeof feedback.options.customFormat === 'string' ? feedback.options.customFormat : '').replace('{artist}', artist).replace('{album}', album).replace('{title}', title);
-						break;
+						text = (typeof feedback.options.customFormat === 'string' ? feedback.options.customFormat : '')
+							.replace('{artist}', artist)
+							.replace('{album}', album)
+							.replace('{title}', title)
+						break
 					default:
-						text = [artist, album, title].filter(Boolean).join(sep);
+						text = [artist, album, title].filter(Boolean).join(sep)
 				}
-				return { text: String(text) };
+				return { text: String(text) }
 			},
-		}
-	});
+		},
+	})
 }
