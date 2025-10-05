@@ -2,9 +2,9 @@ import type { ModuleInstance } from './main.js'
 import got from 'got'
 import { InstanceStatus } from '@companion-module/base'
 
-async function post(route: string, self: ModuleInstance) {
+async function post(route: string, self: ModuleInstance, options?: object) {
 	try {
-		await got.post(`http://${self.config.host}:${self.config.port}/api/${route}`)
+		await got.post(`http://${self.config.host}:${self.config.port}/api/${route}`, options)
 		self.log('debug', `executed ${route}`)
 		self.updateStatus(InstanceStatus.Ok)
 	} catch (e: any) {
@@ -87,6 +87,52 @@ export function UpdateActions(self: ModuleInstance): void {
 				await post(
 					`player/play/${await context.parseVariablesInString(<string>event.options.playlist)}/${event.options.index}`,
 					self,
+				)
+			},
+		},
+		sortPlaylist: {
+			name: 'Sort Playlist',
+			options: [
+				{
+					id: 'info',
+					type: 'static-text',
+					label: 'Information',
+					value: `The playlist id is the id of the playlist (you can get it via the api at http://${self.config.host}:${self.config.port}/api/playlists)`,
+				},
+				{
+					id: 'playlist',
+					type: 'textinput',
+					label: 'Playlist',
+					required: true,
+					useVariables: true,
+				},
+				{
+					id: 'by',
+					type: 'dropdown',
+					label: 'Sort by',
+					choices: [
+						{ id: 'random', label: 'Random' },
+						{ id: 'artist', label: 'Artist' },
+						{ id: 'album', label: 'Album' },
+						{ id: 'track', label: 'Track number' },
+						{ id: 'date', label: 'Date' },
+						{ id: 'title', label: 'Title' },
+					],
+					default: 'random',
+				},
+			],
+			callback: async (event, context) => {
+				const sortmode = await context.parseVariablesInString(<string>event.options.by)
+				let payload: object
+				if (sortmode === 'random') {
+					payload = { random: true }
+				} else {
+					payload = { by: '%' + sortmode + '%', desc: false }
+				}
+				await post(
+					`playlists/${await context.parseVariablesInString(<string>event.options.playlist)}/items/sort`,
+					self,
+					{ json: payload },
 				)
 			},
 		},
