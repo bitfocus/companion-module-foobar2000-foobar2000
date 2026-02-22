@@ -20,6 +20,7 @@ This module allows you to control foobar2000 using the [beefweb component](https
 - Play Next
 - Play Previous
 - Play Specific Track
+- Sort Playlist
 
 ### Available Variables
 
